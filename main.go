@@ -1,8 +1,8 @@
 package main
 
 import (
-	"cofee_shop/handlers"
 	"cofee_shop/models"
+	"cofee_shop/routes"
 	"encoding/json"
 	"net/http"
 
@@ -70,14 +70,7 @@ func corsMiddleware(next http.Handler) http.Handler {
 }
 
 func main() {
-	r := mux.NewRouter()
-	r.HandleFunc("/menu", Getmenu).Methods("GET")
-	r.HandleFunc("/menu{id}", GetDrink).Methods("GET")
-	r.HandleFunc("/orders", handlers.GetOrders).Methods("GET")
-	r.HandleFunc("/orders/{id}", handlers.Getorder).Methods("GET")
-	r.HandleFunc("/orders", handlers.CreateOrder).Methods("POST")
-	r.HandleFunc("/orders/{id}", handlers.UpdateOrderStatus).Methods("PATCH")
-	r.HandleFunc("/orders/{id}", handlers.CancelOrder).Methods("DELETE")
+	r := routes.Register_routes()
 
 	println("démarrage du serveur sur le port 8080....")
 	http.ListenAndServe(":8080", corsMiddleware(r))

@@ -23,8 +23,6 @@ func Register_routes() *mux.Router {
 	r.HandleFunc("/orders/{id}", handlers.CancelOrder).Methods("DELETE")
 	//GET /orders
 	r.HandleFunc("/orders", handlers.GetOrders).Methods("GET")
-	//GET /orders/{id}
-	r.HandleFunc("/orders/{id}", handlers.Getorder).Methods("GET")
 	//GET /oders/{id}/status
 	r.HandleFunc("/orders/{id}/status", handlers.Getorder).Methods("GET")
 
