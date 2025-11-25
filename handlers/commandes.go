@@ -17,6 +17,7 @@ var orderCounter int = 1
 
 // post /orders - créer une nouvelle commande
 func CreateOrder(w http.ResponseWriter, r *http.Request) {
+
 	//1. definir le content type à l'apllication json
 	w.Header().Set("Content-Type", "application/json")
 	//2 decoder le body JSOn dans une variable de type order
@@ -29,21 +30,16 @@ func CreateOrder(w http.ResponseWriter, r *http.Request) {
 	}
 	//4 verifier l'existance de la boissons commandée
 	var comm_boissons *models.Drink
-	for i := range Drinks {
-		if Drinks[i].ID == neworder.DrinkID {
-			comm_boissons = &Drinks[i]
+	for _, drink := range Drinks {
+		if drink.ID == neworder.DrinkID {
+			comm_boissons = &drink
 			break
 		}
 	}
-	/*for _, drinks := range Drinks {
-		if drinks.ID == neworder.DrinkID {
-			comm_boissons = &drinks
-			break
-		}
-	}*/
 	//5 si la boisson n'existe pas, retourner une erreur
 	if comm_boissons == nil {
 		http.Error(w, "404 Bad request", http.StatusBadRequest)
+		return
 	}
 	//6 génerer un Id pour la commande
 	neworder.ID = fmt.Sprintf("ORD-%03d", orderCounter)
