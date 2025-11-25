@@ -73,6 +73,8 @@ func main() {
 	r := routes.Register_routes()
 
 	println("démarrage du serveur sur le port 8080....")
+	println("Bienvenue très cher")
+	println("J'espère que vous avez soif!!!")
 	http.ListenAndServe(":8080", corsMiddleware(r))
 
 }
